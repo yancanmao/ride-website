@@ -50,7 +50,7 @@ for path, document in documents.items():
         checked += 1
 for entry in json.loads((ROOT / 'assets/PROVENANCE.json').read_text()):
     assert hashlib.sha256((ROOT / entry['asset']).read_bytes()).hexdigest() == entry['sha256']
-assert len(documents) == 2
+assert len(documents) == 3
 assert 'not live monitoring' in (ROOT / 'index.html').read_text()
 assert 'Zero real model requests' in (ROOT / 'docs/controllers.html').read_text()
 print(json.dumps(dict(status='PASS', html_documents=len(documents), local_links=checked,

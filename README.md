@@ -10,6 +10,12 @@ Workloads change. Serving configurations should adapt. RIDE's research vision is
 
 控制对象不止请求或几个参数：组件、实现、模型、策略、连接、并行组织，以及资源与状态绑定，都可以进入配置与重配置的研究范围。当前工程从独立 Controller 入手，逐步验证协作。
 
+## Architecture / 系统架构
+
+[Architecture page](https://yancanmao.github.io/ride-website/docs/architecture.html) · [Editable draw.io](assets/architecture/bundle/ride-architecture.drawio) · [Structured source](assets/architecture/ride-architecture.json)
+
+Ray 承载分布式进程、资源调度与执行观测；RIDE 管部署、身份与生命周期；独立 Controller 执行运行时循环。业务请求、控制动作、观测反馈分列。六类基础能力已纳入67项本地检查，新增云端和真实设备资格另验；配置选择只建议，放置不是资源预约。
+
 ## The vision / 研究愿景
 
 1. **Cross-layer diagnosis / 跨层瓶颈分析** — associate programs, requests, batches, engines, KV, communication, and resources; explain what actually constrains service performance.

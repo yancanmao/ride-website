@@ -19,6 +19,7 @@
     <a class="brand" href="#" aria-label="RIDE home"><img src="assets/mark.svg" width="31" height="31" alt=""><span>RIDE</span></a>
     <nav aria-label="Main navigation">
       <a href="#vision" data-zh="愿景">Vision</a>
+      <a href="#architecture" data-zh="系统架构">Architecture</a>
       <a href="#controllers" data-zh="Controller 实例">Controllers</a>
       <a href="#build" data-zh="开发接入">Build</a>
       <button id="language" type="button" aria-label="Switch to Chinese">中文</button>
@@ -64,6 +65,13 @@
         <a class="figure-image" href="assets/control-plane-vision.png" target="_blank" rel="noopener"><img src="assets/control-plane-vision.png" width="1536" height="1024" alt="Original RIDE research concept: current and target configurations, observation, stateful reconfiguration, and the inference data plane." loading="lazy"></a>
         <figcaption data-zh="沿用毛言粲研究材料中的原始概念图（2026-09-14），未改动。它描述研究范围，不表示所有接口、策略或重配置路径已经实现。">Original concept figure from Yancan Mao's research materials, reused without modification (2026-09-14). It describes the research scope; the interfaces, policies, and reconfiguration paths are not all implemented.</figcaption>
       </figure>
+    </section>
+
+    <section class="wrap architecture-overview" id="architecture" aria-labelledby="architecture-title">
+      <p class="eyebrow" data-zh="系统架构 / 从执行底座到控制循环">ARCHITECTURE / FROM EXECUTION TO CONTROL</p>
+      <div class="architecture-overview-copy"><h2 id="architecture-title" data-zh="Ray 承载，RIDE 管理，<br>Controller 运行控制循环。" data-html>Ray executes. RIDE manages.<br><em>Controllers close the loop.</em></h2><p data-zh="分布式进程、生命周期和运行时策略各有明确职责。六类基础能力共享管理入口，通过实际接口协作，并关联引擎与业务观测。">Distributed processes, lifecycle, and runtime policy have distinct responsibilities. Six baseline capabilities share management, cooperate through actual interfaces, and connect engine and business observations.</p></div>
+      <div class="architecture-overview-links"><a class="button primary" href="docs/architecture.html"><span data-zh="查看完整架构与两张图">Explore the architecture</span> ↗</a><a class="text-link" href="assets/architecture/bundle/ride-architecture.drawio" download><span data-zh="下载可编辑 draw.io">Editable draw.io</span> ↓</a></div>
+      <a class="architecture-strip" href="docs/architecture.html"><span><b>Ray</b><small data-zh="分布式执行与资源调度">Distributed execution & resources</small></span><i>→</i><span><b>RIDE</b><small data-zh="部署、身份与生命周期">Deployment, identity & lifecycle</small></span><i>→</i><span><b>Controllers</b><small data-zh="观测、决策、动作与核验">Observe, decide, actuate & verify</small></span></a>
     </section>
 
     <section class="controllers-section" id="controllers" aria-labelledby="controllers-title"><div class="wrap section">

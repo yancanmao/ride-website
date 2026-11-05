@@ -1,0 +1,22 @@
+{
+  "format": "drawio-diagram-bundle/v1",
+  "generator": "drawio-diagram-engineer",
+  "tool_version": "1.7.0",
+  "name": "ride-architecture",
+  "model": "diagram",
+  "source": {
+    "name": "ride-architecture.json",
+    "included": false
+  },
+  "score": 100,
+  "artifacts": {
+    "ir": "diagram.json",
+    "drawio": "ride-architecture.drawio",
+    "audit": "audit.json",
+    "security": "security.json",
+    "previews": [
+      "previews/system-layers.svg",
+      "previews/control-observation.svg"
+    ]
+  }
+}

@@ -1,0 +1,732 @@
+{
+  "version": "1",
+  "diagram": {
+    "title": "RIDE Architecture",
+    "direction": "TB",
+    "theme": "light",
+    "background": "#ffffff",
+    "gap": 80
+  },
+  "pages": [
+    {
+      "id": "system-layers",
+      "title": "RIDE 系统架构与责任分层",
+      "groups": [
+        {
+          "id": "controllers",
+          "label": "运行时管控 · 六类独立 Controller"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "intent",
+          "label": "用户 / 应用目标",
+          "position": {
+            "x": 405,
+            "y": 20
+          },
+          "size": {
+            "width": 550,
+            "height": 65
+          },
+          "description": "服务要求、配置与允许的控制范围",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "ride",
+          "label": "RIDE · 部署与生命周期管理",
+          "position": {
+            "x": 100,
+            "y": 140
+          },
+          "size": {
+            "width": 1160,
+            "height": 100
+          },
+          "description": "配置、插件、进程身份、状态、日志与启停",
+          "style": {
+            "fill": "#fff6ed",
+            "stroke": "#b7492c",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "loop-contract",
+          "label": "独立进程 · 独立状态 · 独立控制循环",
+          "position": {
+            "x": 100,
+            "y": 285
+          },
+          "size": {
+            "width": 1160,
+            "height": 65
+          },
+          "description": "Observe → Decide → Actuate → Verify",
+          "style": {
+            "fill": "#fff6ed",
+            "stroke": "#b7492c",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "requests",
+          "label": "请求控制",
+          "position": {
+            "x": 100,
+            "y": 405
+          },
+          "size": {
+            "width": 175,
+            "height": 110
+          },
+          "description": "等待 / 并发 / program 归属",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "group": "controllers"
+        },
+        {
+          "id": "routing",
+          "label": "请求路由",
+          "position": {
+            "x": 297,
+            "y": 405
+          },
+          "size": {
+            "width": 175,
+            "height": 110
+          },
+          "description": "副本选择 / 归属约束",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "group": "controllers"
+        },
+        {
+          "id": "kv",
+          "label": "KV 管理",
+          "position": {
+            "x": 494,
+            "y": 405
+          },
+          "size": {
+            "width": 175,
+            "height": 110
+          },
+          "description": "查询 / 原生复制 / 核验",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "group": "controllers"
+        },
+        {
+          "id": "autoscaling",
+          "label": "实例扩缩",
+          "position": {
+            "x": 691,
+            "y": 405
+          },
+          "size": {
+            "width": 175,
+            "height": 110
+          },
+          "description": "期望数量 / 就绪 / 排空",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "group": "controllers"
+        },
+        {
+          "id": "placement",
+          "label": "模型放置",
+          "position": {
+            "x": 888,
+            "y": 405
+          },
+          "size": {
+            "width": 175,
+            "height": 110
+          },
+          "description": "已批准部署位置的选择",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "group": "controllers"
+        },
+        {
+          "id": "configuration",
+          "label": "配置选择",
+          "position": {
+            "x": 1085,
+            "y": 405
+          },
+          "size": {
+            "width": 175,
+            "height": 110
+          },
+          "description": "批准配置的比较与建议",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "group": "controllers"
+        },
+        {
+          "id": "interfaces",
+          "label": "已有执行接口与观测接口",
+          "position": {
+            "x": 100,
+            "y": 600
+          },
+          "size": {
+            "width": 1160,
+            "height": 85
+          },
+          "description": "模型生命周期 / 请求与 program / KV / 引擎指标",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "model",
+          "label": "推理引擎 / 模型",
+          "position": {
+            "x": 100,
+            "y": 765
+          },
+          "size": {
+            "width": 365,
+            "height": 95
+          },
+          "description": "实际推理 / 调度 / 设备状态",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "cache",
+          "label": "KV 状态服务",
+          "position": {
+            "x": 497,
+            "y": 765
+          },
+          "size": {
+            "width": 365,
+            "height": 95
+          },
+          "description": "实际缓存 / 复制 / 前缀覆盖",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "telemetry",
+          "label": "分层可观测性",
+          "position": {
+            "x": 895,
+            "y": 765
+          },
+          "size": {
+            "width": 365,
+            "height": 95
+          },
+          "description": "Ray 进程指标 + 引擎与业务观测",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "ray",
+          "label": "Ray · 分布式执行底座",
+          "position": {
+            "x": 100,
+            "y": 950
+          },
+          "size": {
+            "width": 1160,
+            "height": 100
+          },
+          "description": "承载 Controller 与模型；资源调度、节点 / 任务状态与日志",
+          "style": {
+            "fill": "#fff6ed",
+            "stroke": "#b7492c",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "scope-note",
+          "label": "实现与验收范围",
+          "position": {
+            "x": 100,
+            "y": 1110
+          },
+          "size": {
+            "width": 1160,
+            "height": 85
+          },
+          "description": "配置只建议；观测缺失不填零；软件通过不等于硬件或收益通过",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "kind": "note"
+        }
+      ],
+      "edges": [
+        {
+          "id": "intent-ride",
+          "from": "intent",
+          "to": "ride",
+          "label": "管理意图",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "ride-contract",
+          "from": "ride",
+          "to": "loop-contract",
+          "label": "管理独立 Controller",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "ride-ray",
+          "from": "ride",
+          "to": "ray",
+          "label": "Jobs 生命周期",
+          "kind": "async",
+          "style": {
+            "source_port": "west",
+            "target_port": "west",
+            "dashed": true,
+            "color": "#b7492c"
+          }
+        },
+        {
+          "id": "contract-requests",
+          "from": "loop-contract",
+          "to": "requests",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "requests-interfaces",
+          "from": "requests",
+          "to": "interfaces",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "contract-routing",
+          "from": "loop-contract",
+          "to": "routing",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "routing-interfaces",
+          "from": "routing",
+          "to": "interfaces",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "contract-kv",
+          "from": "loop-contract",
+          "to": "kv",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "kv-interfaces",
+          "from": "kv",
+          "to": "interfaces",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "contract-autoscaling",
+          "from": "loop-contract",
+          "to": "autoscaling",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "autoscaling-interfaces",
+          "from": "autoscaling",
+          "to": "interfaces",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "contract-placement",
+          "from": "loop-contract",
+          "to": "placement",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "placement-interfaces",
+          "from": "placement",
+          "to": "interfaces",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "contract-configuration",
+          "from": "loop-contract",
+          "to": "configuration",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "configuration-interfaces",
+          "from": "configuration",
+          "to": "interfaces",
+          "label": "",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "interfaces-model",
+          "from": "interfaces",
+          "to": "model",
+          "label": "动作 / 观测",
+          "kind": "data",
+          "style": {}
+        },
+        {
+          "id": "interfaces-cache",
+          "from": "interfaces",
+          "to": "cache",
+          "label": "动作 / 观测",
+          "kind": "data",
+          "style": {}
+        },
+        {
+          "id": "interfaces-telemetry",
+          "from": "interfaces",
+          "to": "telemetry",
+          "label": "动作 / 观测",
+          "kind": "data",
+          "style": {}
+        }
+      ]
+    },
+    {
+      "id": "control-observation",
+      "title": "业务请求、控制动作与观测反馈",
+      "nodes": [
+        {
+          "id": "client",
+          "label": "客户端 / 多轮程序",
+          "position": {
+            "x": 80,
+            "y": 365
+          },
+          "size": {
+            "width": 260,
+            "height": 90
+          },
+          "description": "请求与真实输出反馈",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "request-layer",
+          "label": "限流层",
+          "position": {
+            "x": 460,
+            "y": 365
+          },
+          "size": {
+            "width": 280,
+            "height": 90
+          },
+          "description": "请求 Controller / 原请求转发",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "engine",
+          "label": "推理引擎",
+          "position": {
+            "x": 860,
+            "y": 365
+          },
+          "size": {
+            "width": 280,
+            "height": 90
+          },
+          "description": "模型执行 / 本地 KV",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "state-service",
+          "label": "KV 状态服务",
+          "position": {
+            "x": 1240,
+            "y": 365
+          },
+          "size": {
+            "width": 280,
+            "height": 90
+          },
+          "description": "原生 LMCache / 后端搬运",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "controllers",
+          "label": "Controller 控制循环",
+          "position": {
+            "x": 460,
+            "y": 70
+          },
+          "size": {
+            "width": 280,
+            "height": 115
+          },
+          "description": "请求 / 路由 / KV / 扩缩 / 放置 / 配置",
+          "style": {
+            "fill": "#fff6ed",
+            "stroke": "#b7492c",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "observations",
+          "label": "关联后的运行观测",
+          "position": {
+            "x": 990,
+            "y": 70
+          },
+          "size": {
+            "width": 420,
+            "height": 115
+          },
+          "description": "program / request / engine / KV / Job 身份",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "actuation",
+          "label": "执行并核验动作",
+          "position": {
+            "x": 80,
+            "y": 630
+          },
+          "size": {
+            "width": 260,
+            "height": 130
+          },
+          "description": "执行接口 / 操作身份 / 结果核验",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          }
+        },
+        {
+          "id": "notes",
+          "label": "请求、控制与观测是不同路径",
+          "position": {
+            "x": 80,
+            "y": 835
+          },
+          "size": {
+            "width": 1440,
+            "height": 90
+          },
+          "description": "业务请求不经过 RIDE 管理 API；控制与观测使用独立接口",
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#454b43",
+            "font": "#242822",
+            "rounded": false
+          },
+          "kind": "note"
+        }
+      ],
+      "edges": [
+        {
+          "id": "client-requests",
+          "from": "client",
+          "to": "request-layer",
+          "label": "模型请求",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "requests-engine",
+          "from": "request-layer",
+          "to": "engine",
+          "label": "原始模型请求",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "engine-cache",
+          "from": "engine",
+          "to": "state-service",
+          "label": "KV 读写 / 传输",
+          "kind": "sync",
+          "style": {}
+        },
+        {
+          "id": "engine-observation",
+          "from": "engine",
+          "to": "observations",
+          "label": "引擎 / KV 观测",
+          "kind": "async",
+          "style": {
+            "dashed": true
+          }
+        },
+        {
+          "id": "request-observation",
+          "from": "request-layer",
+          "to": "observations",
+          "label": "program / 请求观测",
+          "kind": "async",
+          "style": {
+            "dashed": true
+          }
+        },
+        {
+          "id": "observe-decide",
+          "from": "observations",
+          "to": "controllers",
+          "label": "带来源与时间的快照",
+          "kind": "async",
+          "style": {
+            "dashed": true
+          }
+        },
+        {
+          "id": "controller-request",
+          "from": "controllers",
+          "to": "request-layer",
+          "label": "请求控制",
+          "kind": "association",
+          "style": {
+            "dashed": true,
+            "color": "#b7492c"
+          }
+        },
+        {
+          "id": "decision-action",
+          "from": "controllers",
+          "to": "actuation",
+          "label": "决策与操作身份",
+          "kind": "association",
+          "style": {
+            "source_port": "west",
+            "target_port": "north",
+            "dashed": true,
+            "color": "#b7492c"
+          }
+        },
+        {
+          "id": "action-engine",
+          "from": "actuation",
+          "to": "engine",
+          "label": "已有执行 API",
+          "kind": "association",
+          "style": {
+            "dashed": true,
+            "color": "#b7492c",
+            "source_port": "east",
+            "target_port": "south"
+          }
+        },
+        {
+          "id": "action-cache",
+          "from": "actuation",
+          "to": "state-service",
+          "label": "原生 KV API",
+          "kind": "association",
+          "style": {
+            "dashed": true,
+            "color": "#b7492c",
+            "source_port": "east",
+            "target_port": "south"
+          }
+        }
+      ]
+    }
+  ]
+}
