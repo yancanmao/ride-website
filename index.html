@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RIDE: a programmable control plane for distributed inference. Explore the vision, independent controllers, and current implementation.">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta property="og:title" content="RIDE — A control plane for evolving inference">
+  <meta property="og:description" content="Understand the running system. Explore better configurations. Make stateful changes with their costs in view.">
+  <meta property="og:type" content="website">
+  <title>RIDE — A control plane for evolving inference</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-zh="跳到正文">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#" aria-label="RIDE home"><img src="assets/mark.svg" width="31" height="31" alt=""><span>RIDE</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#vision" data-zh="愿景">Vision</a>
+      <a href="#controllers" data-zh="Controller 实例">Controllers</a>
+      <a href="#build" data-zh="开发接入">Build</a>
+      <button id="language" type="button" aria-label="Switch to Chinese">中文</button>
+      <a class="nav-source" href="https://github.com/vLLM-HUST/ride">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-square"></span><span data-zh="分布式推理 · 可编程控制面">DISTRIBUTED INFERENCE · PROGRAMMABLE CONTROL PLANE</span></p>
+        <h1 id="hero-title" data-zh="让推理系统<br>随负载而变。" data-html>A control plane for<br><em>evolving inference.</em></h1>
+        <p class="hero-description" data-zh="负载在变，配置也应随之调整。RIDE 的目标是连接程序、运行状态与系统配置，让独立 Controller 协同管理请求、KV、模型实例，以及更广泛的推理服务组件。">Workloads change. Serving configurations should adapt. RIDE connects programs, runtime state, and system configuration so independent controllers can coordinate requests, KV, model instances, and the wider inference system.</p>
+        <div class="hero-actions"><a class="button primary" href="#vision"><span data-zh="探索控制面愿景">Explore the vision</span><span aria-hidden="true">↓</span></a><a class="text-link" href="#controllers"><span data-zh="查看 Controller 实例">Meet the controllers</span><span aria-hidden="true">↗</span></a></div>
+        <p class="hero-note" data-zh="一个研究愿景，一套逐步落地的控制面。">A research vision, grounded in an evolving implementation.</p>
+      </div>
+      <div class="system-map" aria-label="Conceptual scope: workloads, RIDE controllers, and the inference data plane">
+        <div class="map-top"><span class="map-label" data-zh="程序与服务目标">PROGRAMS & SERVICE OBJECTIVES</span><span class="map-number">01—03</span></div>
+        <div class="workload-row"><span data-zh="在线服务">Online serving</span><span data-zh="Agent 工作流">Agent workflows</span><span data-zh="批量任务">Batch jobs</span></div>
+        <div class="map-flow"><span>↓</span><span data-zh="需求、依赖、运行反馈">intent, dependencies, runtime feedback</span><span>↑</span></div>
+        <div class="map-plane">
+          <div class="plane-title"><strong>RIDE</strong><span data-zh="控制面">CONTROL PLANE</span></div>
+          <div class="controller-nodes"><a href="#request-throttling"><b>01</b><span data-zh="请求控制">Requests</span></a><a href="#kv-management"><b>02</b><span data-zh="KV 管理">KV state</span></a><a href="#instance-autoscaling"><b>03</b><span data-zh="实例扩缩">Instances</span></a></div>
+          <div class="plane-baseline" data-zh="观测 → 决策 → 执行 → 验证">Observe → Decide → Actuate → Verify</div>
+        </div>
+        <div class="map-flow"><span>↓</span><span data-zh="配置与状态变更 · 执行结果">configuration & state changes · outcomes</span><span>↑</span></div>
+        <div class="data-plane"><span class="map-label" data-zh="运行中的推理服务 · 数据面">RUNNING INFERENCE SYSTEM · DATA PLANE</span><div><span>Router</span><span>Engines</span><span>KV stores</span><span>Resources</span></div></div>
+        <p class="map-caption"><span class="small-square"></span><span data-zh="概念视图 · 不代表完整能力已实现">Conceptual scope · not a claim of full implementation</span></p>
+      </div>
+    </section>
+
+    <div class="scope-strip"><div class="wrap"><span data-zh="控制对象不止参数">BEYOND PARAMETER TUNING</span><p data-zh="组件与实现 <i>／</i> 模型与策略 <i>／</i> 连接与并行组织 <i>／</i> 资源与状态绑定" data-html>Components & implementations <i>/</i> Models & policies <i>/</i> Connections & parallelism <i>/</i> Resource & state bindings</p></div></div>
+
+    <section class="section wrap" id="vision" aria-labelledby="vision-title">
+      <div class="section-heading"><p class="eyebrow" data-zh="01 / 研究愿景">01 / THE VISION</p><div><h2 id="vision-title" data-zh="以整个推理服务<br>作为优化对象。" data-html>The scope is<br><em>the system.</em></h2><p class="section-intro" data-zh="一个局部最优，未必带来更好的服务。请求分散可能增加 KV 传输，扩容可能受冷启动拖累，缓存保留也可能挤占活跃任务。控制面需要一起看需求、依赖、状态与改变的代价。">A better local decision does not always make a better service. Routing can increase KV traffic. Scaling can be dominated by cold starts. Retaining cache can crowd out active work. A control plane must reason about demand, dependencies, state, and the cost of change together.</p></div></div>
+      <div class="research-grid">
+        <article><span class="research-number">I.</span><h3 data-zh="理解正在运行的系统">Understand the running system</h3><p data-zh="关联程序、请求、批次、引擎、KV、通信与资源，分析跨层瓶颈。区分需求下降、依赖阻塞与容量不足；诊断也应能独立服务人工分析。">Connect programs, requests, batches, engines, KV, communication, and resources. Explain cross-layer bottlenecks, distinguish reduced demand from blocked dependencies, and make diagnosis useful to people as well as controllers.</p><span class="research-tag" data-zh="跨层运行状态感知与瓶颈分析">Cross-layer diagnosis</span></article>
+        <article><span class="research-number">II.</span><h3 data-zh="探索更合适的配置">Explore better configurations</h3><p data-zh="用统一抽象描述组件、实现、模型、策略及它们的连接与绑定。在约束下比较目标配置，利用执行反馈改进选择，而非只调几个固定参数。">Describe components, implementations, models, policies, connections, and bindings in a common abstraction. Compare candidate configurations under constraints and use execution feedback to improve the next choice.</p><span class="research-tag" data-zh="统一配置抽象与协同优化">Configuration exploration</span></article>
+        <article><span class="research-number">III.</span><h3 data-zh="把改变的代价算进去">Account for the transition</h3><p data-zh="决定是否改变、何时改变、怎样改变。将模型加载、状态搬运或重算、缓存重建、排空与服务扰动计入方案，而不是只看目标配置的稳态收益。">Decide whether, when, and how to change. Include model loading, state transfer or recomputation, cache rebuilding, drain, and service disruption—not only the steady-state performance of a target configuration.</p><span class="research-tag" data-zh="成本感知的有状态在线重配置">Stateful online reconfiguration</span></article>
+      </div>
+      <figure class="vision-figure">
+        <div class="figure-toolbar"><span data-zh="研究蓝图 / 原始概念图">RESEARCH BLUEPRINT / ORIGINAL CONCEPT FIGURE</span><a href="assets/control-plane-vision.png" target="_blank" rel="noopener"><span data-zh="查看原图">Open full size</span> ↗</a></div>
+        <a class="figure-image" href="assets/control-plane-vision.png" target="_blank" rel="noopener"><img src="assets/control-plane-vision.png" width="1536" height="1024" alt="Original RIDE research concept: current and target configurations, observation, stateful reconfiguration, and the inference data plane." loading="lazy"></a>
+        <figcaption data-zh="沿用毛言粲研究材料中的原始概念图（2026-09-14），未改动。它描述研究范围，不表示所有接口、策略或重配置路径已经实现。">Original concept figure from Yancan Mao's research materials, reused without modification (2026-09-14). It describes the research scope; the interfaces, policies, and reconfiguration paths are not all implemented.</figcaption>
+      </figure>
+    </section>
+
+    <section class="controllers-section" id="controllers" aria-labelledby="controllers-title"><div class="wrap section">
+      <div class="section-heading"><p class="eyebrow" data-zh="02 / 落地实例">02 / CONTROLLERS IN PRACTICE</p><div><h2 id="controllers-title" data-zh="独立运行，<br>协同控制。" data-html>Independent controllers.<br><em>Coordinated actions.</em></h2><p class="section-intro" data-zh="每个 Controller 拥有自己的策略、状态与生命周期，由 RIDE 统一管理。以下三个实例是当前工程的落点，并不是 RIDE 研究范围的上限。">Each controller owns its policy, state, and lifecycle, with RIDE as the common management layer. These three examples are the current engineering focus, not the limit of the research scope.</p></div></div>
+
+      <article class="controller-row" id="request-throttling">
+        <div class="controller-index">01</div><div class="controller-main"><div class="controller-heading"><h3>Request Throttling</h3><span class="badge" data-zh="已有接入">Existing integration</span></div><p class="controller-question" data-zh="什么请求现在执行，什么请求应该等待？">Which requests should run now, and which should wait?</p><p data-zh="在限流层排队、控制并发并保持多轮 program 的模型归属。把工具等待和 program 完成纳入控制，而不把每轮请求当作互不相关的任务。">Queue requests, control concurrency, and keep multi-turn programs associated with their model instance. Account for tool waits and program completion instead of treating every turn as an unrelated request.</p><div class="mini-path"><span data-zh="客户端">Client</span><i>→</i><strong data-zh="限流层">Request Throttling</strong><i>→</i><span data-zh="模型">Model</span></div><div class="controller-links"><a href="https://github.com/vLLM-HUST/request-throttling-controller"><span data-zh="Controller 仓库（访问受限）">Controller repository (restricted)</span> ↗</a><a href="https://github.com/vLLM-HUST/ride/blob/main/docs/guides/CONTROLLER_DEVELOPMENT.md"><span data-zh="接入指南">Integration guide</span> ↗</a></div></div><div class="controller-side"><span class="side-label" data-zh="控制对象">CONTROL TARGET</span><p data-zh="请求与 program">Requests & programs</p><span class="side-label" data-zh="协作关系">COORDINATION</span><p data-zh="把执行位置与 KV 局部性关联；在缩容前等待已有 program 完成。">Connect execution placement with KV locality; let existing programs finish before scale-down.</p><details><summary data-zh="当前实现与验证范围">Implementation & verification</summary><p data-zh="已有 Request Throttling 接入；新的 cooperative-requests 是独立实现，不等同于原版算法。新协作包已过云端 CPU 生命周期验证，尚未完成真实模型收益验收。">An existing Request Throttling integration is available. The new cooperative-requests is a separate implementation, not the original algorithm. The cooperative package has cloud CPU lifecycle validation; real-model performance acceptance is pending.</p><a href="assets/request-throttling-architecture.svg" target="_blank" rel="noopener" data-zh="查看原有架构图 ↗">View the existing architecture figure ↗</a></details></div>
+      </article>
+
+      <article class="controller-row" id="kv-management">
+        <div class="controller-index">02</div><div class="controller-main"><div class="controller-heading"><h3>KV Management</h3><span class="badge" data-zh="CPU 原型已验证">CPU-validated prototype</span></div><p class="controller-question" data-zh="需要的前缀状态，是否在下一次执行的位置？">Is reusable prefix state where the next turn will execute?</p><p data-zh="查询各副本的连续前缀覆盖，通过原生 LMCache 接口复制已有 CPU KV chunks，并核对源与目标覆盖。独立维护动作记录，不把请求改派当成状态已经迁移。">Observe contiguous prefix coverage per replica, copy existing CPU KV chunks through native LMCache interfaces, and check both source and destination coverage. Track actions independently; a routing change is not proof that state moved.</p><div class="mini-path"><span data-zh="观测前缀">Observe prefix</span><i>→</i><strong data-zh="复制并核验">Copy & verify</strong><i>→</i><span data-zh="请求继续">Continue request</span></div><div class="controller-links"><a href="docs/controllers.html#kv"><span data-zh="查看设计与边界">Design & boundaries</span> ↗</a><a href="https://github.com/LMCache/LMCache"><span data-zh="原生 LMCache 后端">Native LMCache backend</span> ↗</a></div></div><div class="controller-side"><span class="side-label" data-zh="控制对象">CONTROL TARGET</span><p data-zh="跨实例 CPU KV 前缀">Cross-instance CPU KV prefixes</p><span class="side-label" data-zh="协作关系">COORDINATION</span><p data-zh="服务请求放置与续轮；未知复制结果阻止缩容排空完成。">Support request placement and continuation; unresolved copies block completion of scale-down drain.</p><details><summary data-zh="当前实现与验证范围">Implementation & verification</summary><p data-zh="插件与原生登记后端已通过云端 CPU 进程验证。真实设备搬运、物理字节和输出继承尚未验收；不提供任意设备 offload、GDN 或 MTP 状态搬运。">Plugin and native registry backend validated as cloud CPU processes. Physical transfer, device bytes, and output inheritance are not yet accepted. Arbitrary device offload, GDN, and MTP state transfer are outside this version.</p></details></div>
+      </article>
+
+      <article class="controller-row" id="instance-autoscaling">
+        <div class="controller-index">03</div><div class="controller-main"><div class="controller-heading"><h3>Instance Autoscaling</h3><span class="badge" data-zh="CPU 原型已验证">CPU-validated prototype</span></div><p class="controller-question" data-zh="何时需要更多模型副本，何时可以安全停掉？">When is another model replica needed, and when can one stop?</p><p data-zh="根据目标并发与升降延迟，在允许的实例池中通过 RIDE 调整模型副本。扩容后先等就绪再接流量；缩容前先排空 program，再确认 KV 动作，最后按精确 Job 身份停止。">Use target concurrency and separate scale-up/down delays to manage an approved model pool through RIDE. Route only after readiness; on scale-down, drain programs, check KV operations, then stop the exact recorded job.</p><div class="mini-path"><span data-zh="需求变化">Demand</span><i>→</i><strong data-zh="就绪 / 排空">Ready / drain</strong><i>→</i><span data-zh="RIDE 生命周期">RIDE lifecycle</span></div><div class="controller-links"><a href="docs/controllers.html#instances"><span data-zh="查看设计与边界">Design & boundaries</span> ↗</a><a href="https://github.com/vLLM-HUST/ride"><span data-zh="RIDE 运行框架">RIDE runtime</span> ↗</a></div></div><div class="controller-side"><span class="side-label" data-zh="控制对象">CONTROL TARGET</span><p data-zh="模型进程与 Ray 资源预约">Model processes & Ray reservations</p><span class="side-label" data-zh="协作关系">COORDINATION</span><p data-zh="请求完成与 KV 状态共同约束缩容，而非直接杀掉副本。">Program completion and KV state constrain scale-down together.</p><details><summary data-zh="当前实现与验证范围">Implementation & verification</summary><p data-zh="CPU 协作与故障路径已检查，真实模型扩缩与收益待验。停止模型 Job 不会自动减少 Coder/RayCluster 申请的 NPU；当前不宣称降低平台占卡成本。">CPU cooperation and failure paths checked; actual model scaling and benefit remain unvalidated. Stopping a model job does not reduce the NPU allocation of its Coder/RayCluster. Platform allocation savings are not claimed.</p></details></div>
+      </article>
+
+      <div class="cooperation"><span class="cooperation-label" data-zh="以缩容为例">ONE EXAMPLE: SCALE-DOWN</span><div><span data-zh="停止接入新 program">Stop admitting new programs</span><b>→</b><span data-zh="等待已有 program 完成">Let existing programs finish</span><b>→</b><span data-zh="确认 KV 动作完成">Resolve KV operations</span><b>→</b><span data-zh="停止对应模型 Job">Stop the recorded model job</span></div><p data-zh="这是当前原型的协作顺序；通用的跨 Controller 冲突仲裁与任意策略组合仍是后续工作。">This is the prototype's coordination sequence. General cross-controller arbitration and arbitrary policy composition remain future work.</p></div>
+    </div></section>
+
+    <section class="section wrap build-section" id="build" aria-labelledby="build-title"><div><p class="eyebrow" data-zh="03 / 一个共同的入口">03 / A COMMON FOUNDATION</p><h2 id="build-title" data-zh="策略独立演进，<br>运行契约保持一致。" data-html>Own the policy.<br><em>Share the runtime.</em></h2><p data-zh="Controller 是独立的软件包。RIDE 通过标准插件入口加载它们，统一管理配置、进程身份、状态、日志与生命周期。RIDE 管理 API 不在模型请求路径上；Ray 是执行后端，vLLM 是数据面。">Controllers are independent packages. RIDE discovers adapters through a standard plugin entry point and manages configuration, process identity, status, logs, and lifecycle. The RIDE management API is outside the model request path; Ray executes processes and vLLM serves inference.</p><div class="build-links"><a class="button primary" href="https://github.com/vLLM-HUST/ride"><span data-zh="查看 RIDE 源码">Explore RIDE</span> ↗</a><a class="text-link" href="https://github.com/vLLM-HUST/ride-controller-demo"><span data-zh="Controller 开发模板">Controller starter</span> ↗</a></div></div><div class="terminal"><div class="terminal-header"><span class="terminal-dot"></span><span data-zh="相同的生命周期，独立的 Controller">SAME LIFECYCLE. INDEPENDENT CONTROLLERS.</span></div><pre><code><span class="comment"># Inspect the controllers you own</span>
+<span class="prompt">$</span> ride get controllers
+<span class="prompt">$</span> ride describe controller myc-requests
+<span class="prompt">$</span> ride logs controller myc-kv
+
+<span class="comment"># Explicit lifecycle, exact instance identity</span>
+<span class="prompt">$</span> ride stop controller myc-autoscaling
+<span class="prompt">$</span> ride start controller myc-autoscaling</code></pre><p data-zh="命令示意：需事先安装对应插件并载入完整实例配置；不代表此网站连接了运行中的集群。">Illustrative commands. Plugins and full instance specifications must already be installed and configured. This website is not connected to a live cluster.</p></div></section>
+
+    <section class="evidence-section wrap" id="status"><div><p class="eyebrow" data-zh="研究目标与证据分开">ASPIRATION ≠ ACCEPTANCE</p><h2 data-zh="清楚地说明，<br>走到了哪里。" data-html>Show what exists.<br><em>State what remains.</em></h2></div><div><p data-zh="RIDE 提供管理与插件基础；协作 Controller 已完成 CPU 进程验证。真实模型、物理 KV、模型扩缩与完整批次收益仍需逐项验收。愿景不等于实现，进程健康也不等于算法有效。">RIDE provides the management and plugin foundation. Cooperative controllers have CPU process validation. Real-model behavior, physical KV, model scaling, and full-batch benefit still require acceptance. A vision is not an implementation, and a healthy process is not proof of an effective policy.</p><a class="text-link" href="docs/controllers.html"><span data-zh="逐项查看实现、证据与未完成项">Read the implementation & evidence notes</span> ↗</a><p class="status-date" data-zh="原型状态核对：2026-11-05 · 非实时监控">Prototype status reviewed 2026-11-05 · not live monitoring</p></div></section>
+  </main>
+  <footer class="wrap"><a class="brand" href="#"><img src="assets/mark.svg" width="25" height="25" alt=""><span>RIDE</span></a><p data-zh="毛言粲 · 分布式推理控制面">Yancan Mao · Distributed inference control plane</p><div><a href="https://github.com/yancanmao">@yancanmao ↗</a><a href="https://github.com/yancanmao/ride-website" data-zh="网站源码 ↗">Website source ↗</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[
+  {
+    "asset": "assets/control-plane-vision.png",
+    "origin": "llm-control-plane/研究记录/控制平面理念_20260914/assets/统一配置抽象控制平面_概念图_v1.png",
+    "sha256": "f28374f8a4bdeed8c1a2517ab82a9eefd9ce9a51ee33c9dda323aa62ae31aa19",
+    "reuse": "Unmodified original, reused with owner authorization in this chat.",
+    "scope": "Research concept, 2026-09-14; not an implementation claim."
+  },
+  {
+    "asset": "assets/request-throttling-architecture.svg",
+    "origin": "request-throttling-controller/docs/figures/architecture/controller-architecture.svg",
+    "sha256": "b23a4a0fc2725e48c8043385718bef1763f6bd54863a0f1df09cb04eb1310ca0",
+    "reuse": "Unmodified original, reused with owner authorization in this chat.",
+    "scope": "Existing Request Throttling architecture; annotations retain their original, scoped status."
+  }
+]
