@@ -1,0 +1,40 @@
+{
+  "reviewed_at": "2026-11-05",
+  "implementation_revision": "58e9ead43b7ae29f8d98836f88f6e9ec07390027",
+  "evidence_revision": "d0509be",
+  "evidence_repository": "https://github.com/yancanmao/ride-cooperative-controllers",
+  "source_access": "restricted",
+  "evidence_type": "cloud_cpu_lifecycle",
+  "controller_types": [
+    "requests",
+    "routing",
+    "kv",
+    "autoscaling",
+    "placement",
+    "configuration"
+  ],
+  "controller_count": 6,
+  "software_tests": {
+    "local": 68,
+    "linux_arm64": 68
+  },
+  "lifecycle_checks": [
+    "independent_process_identity",
+    "idempotent_start",
+    "stop_isolation",
+    "controller_restart",
+    "authenticated_control",
+    "standard_stop"
+  ],
+  "lifecycle_status": "PASS",
+  "final_controller_status": "STOPPED",
+  "business_call_chain": "Software ASGI/HTTP fixtures; not independent model acceptance",
+  "model_requests": 0,
+  "distributed_ray": "NOT_RUN",
+  "physical_kv": "NOT_RUN",
+  "actual_model_scaling": "NOT_RUN",
+  "performance": "NOT_RUN",
+  "configuration_mode": "advisory_only",
+  "placement_scope": "approved_node_bound_profiles_not_resource_reservation",
+  "live_telemetry": false
+}

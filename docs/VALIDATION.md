@@ -36,3 +36,7 @@
 新增独立架构页与首页入口；包含系统分层和请求/控制/观测两张图。结构化IR为源，生成可编辑draw.io与SVG；drawio工具doctor通过、Desktop不可用，未宣称原生Desktop PNG导出。两页预览已在实际浏览器视觉检查，缩短了被预览器截断的说明。最终audit评分100、0错误/0警告，security通过。
 
 网站检查当前为3个HTML、57个本地链接，两个原图SHA保持一致。新增架构页中英文、draw.io下载地址、原图入口通过本地浏览器核对。Controller新增功能以67项本地软件检查为界；真实Ray/模型/物理KV/收益未验。
+
+## 六类型云端CPU回执更新
+
+控制器实现/验收来源d0509be（私有仓库），代码58e9ead。六策略标准RIDE云端CPU生命周期已通过，本地与Linux各68项软件检查通过。公开固定版本摘要assets/architecture/validation-summary.json不含平台ID、地址或凭据；Ray分布式、模型/物理KV/性能维持NOT_RUN。更新只修正状态说明，不改架构IR或历史证据。

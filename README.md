@@ -14,7 +14,7 @@ Workloads change. Serving configurations should adapt. RIDE's research vision is
 
 [Architecture page](https://yancanmao.github.io/ride-website/docs/architecture.html) · [Editable draw.io](assets/architecture/bundle/ride-architecture.drawio) · [Structured source](assets/architecture/ride-architecture.json)
 
-Ray 承载分布式进程、资源调度与执行观测；RIDE 管部署、身份与生命周期；独立 Controller 执行运行时循环。业务请求、控制动作、观测反馈分列。六类基础能力已纳入67项本地检查，新增云端和真实设备资格另验；配置选择只建议，放置不是资源预约。
+Ray 承载分布式进程、资源调度与执行观测；RIDE 管部署、身份与生命周期；独立 Controller 执行运行时循环。业务请求、控制动作、观测反馈分列。六类基础能力已通过本地与Linux各68项检查及标准RIDE六进程CPU生命周期；真实Ray分布式和设备资格另验；配置选择只建议，放置不是资源预约。
 
 ## The vision / 研究愿景
 
@@ -38,10 +38,11 @@ These are initial implementations, not the boundary of the research scope. RIDE 
 
 ## What exists / 当前状态
 
-Reviewed **2026-11-05**, cooperative implementation revision `5cdb496`:
+Reviewed **2026-11-05**, implementation and acceptance revision `d0509be`:
 
-- Prior version: three policy controllers and one native LMCache registry backend passed cloud CPU lifecycle validation (44 checks).
-- Replay adapter and missing-worker observation correction: 54 local checks, CLI, and build pass; those additions are not cloud-validated.
+- Six policy plugins passed 68 software checks on local and Linux, CLI/build, and the standard RIDE cloud CPU lifecycle: identity, idempotence, stop isolation, restart, authentication, and stop.
+- Business call chains use software fixtures. Distributed Ray, real model behavior, physical KV, actual model scaling, and performance remain unaccepted.
+- A deployment packaging failure was retained, a child-import guard added, and the complete management payload corrected before the new run passed.
 - Real-model requests for the cooperative package: **0**. Physical KV copy, actual model scaling, and full-batch benefit remain unaccepted.
 - Existing Request Throttling and the new cooperative request controller are distinct implementations.
 - Stopping model jobs does **not** automatically reduce platform NPU allocations.
